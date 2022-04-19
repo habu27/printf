@@ -1,19 +1,40 @@
 #include "main.h"
 
 /**
- * print_binary - Print a number in base 2
- * @list: Number to print in base 2
+ * print_binary - print unsigned int as a binary
+ * @modif: struct containing modifier fields
+ * @ap: va_list pointer containing unsigned int to convert and print
  *
- * Return: Length of the numbers in binary
- **/
-int print_binary(va_list list)
+ * Return: number of printed charachters
+ */
+
+char *print_binary(modifier_t *modif, va_list ap)
 {
-char *p_buff;
-int size;
+	unsigned int n;
+	int i = 0, j = 0;
+	char binary[35], *res_str;
 
-p_buff = itoa(va_arg(list, unsigned int), 2);
-
-size = print(p_buff);
-
-return (size);
+	if (!ap || !modif || modif->specifier != 'b')
+		return (0);
+	n = va_arg(ap, unsigned int);
+	if (n == 0)
+	{
+		j = 1;
+		res_str = malloc(sizeof(char) * 2);
+		res_str[0] = '0';
+	}
+	else
+	{
+		while (n)
+		{
+			binary[i++] = '0' + (n % 2);
+			n = n / 2;
+		}
+		res_str = malloc(sizeof(char) * i);
+		i--;
+		while (i >= 0)
+			res_str[j++] = binary[i--];
+	}
+	res_str[j] = '\0';
+	return (res_str);
 }

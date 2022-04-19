@@ -1,78 +1,63 @@
-./" This is_printf manpage
-.TH man 3 "6 October 2020" "1.0" "_printf man page"
 .SH NAME
 .B _printf
-- format and data.
+- Formatted output conversion.
 .SH SYNOPSIS
-_printf FORMAT [ARGUMENT]...
+.B #include "main.h"
+
+.B int _printf(const char *
+.I format
+.B , ...)
 .SH DESCRIPTION
-Print ARGUMENT(s) according to FORMAT:
+.B _printf()
+Prints to standard output under the control of a 
+.I format
+.SH Return value
+On successful return, these functions return the number of characters printed, excluding the null byte used to end output to strings.
 
-\\"    double quote.
+If an output error is encountered, a negative value is returned.
+.SH Format
+.TP
+.BR c
+The int argument is converted to an unsigned char, then the resulting character is written
+.TP
+.B s
+The const char * argument is expected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up to a terminating null byte, but do ot include the terminating null byte.
+.TP
+.B S
+Prints a string. Non printable characters are printed as "\x" followed by their ASCII values in two digit hexadecimal
+.TP
+.B d, i
+The int argument is converted to signed decimal notation.
+.TP
+.B x, X
+The unsigned int argument is converted to unsigned lowercase hexadecimal notation(x), or unsigned uppercase hexadecimal notation(X).
+.TP
+.B u
+The unsigned int argument is converted to unsigned decimal notation
+.TP
+.B o, b
+The unsigned int argument is converted to unsigned octal notation(o) or binary notation(b).
+.TP
+.B p
+Address is printed in hexadecimal.
+.TP
+.B r
+Prints a string in reverse.
+.TP
+.B R
+Prints a string converted to rot13
+.TP
+.B %
+A '%' is written but no argument is converted. The complete version specification is '%%'
+.SH EXAMPLE
+#include "main.h"
 
-\\\\   backslash.
-
-\\n    new line.
-
-\\r    carriage return.
-
-\\t    horizontal tab.
-
-%%     a single %.
-
-.SH CONVERSION CHARACTERS
-.B The conversion specifiers and their meanings are:
-.IP -b
-The unsigned int argument is converted to binary.
-
-.IP -d,i
-the int argument is converted to signed decimal notation.
-
-IP -c
-The int argument is converted is converted to an unsigned char, and the resulting character is written.
-
-.IP -o,u,x,X
-The unsigned int argument is converted to ( ) notation:
-
-unsigned octal: (o).
-
-unsigned decimal: (u).
-
-unsigned hexadecimal: (x and X).
-
-.IP -s
-Characters from the array are written up to (but not including) a terminating null byte ('\0').
-
-.IP -S
-Characters from the array are written up to (but not including) a terminating null byte ('\0').
-
-Not include characters (0 < ASCII value < 32 or >= 127), are printed \x, , followed by the ASCII code value in hexadecimal (upper case - always 2 characters).
-
-.IP -p
-The void * pointer argument is printed in hexadecimal (as if by %#x or %#lx).
-
-.SH EXAMPLES
-
-.IP -print a string.
-_printf("This is a string");
-_printf("%s\n", "I am a string too!");
-
-.IP print char.
-_printf("Character:[%c]\n", 'H');
-
-IP -print integer.
-_printf("%d, %i\n", 2, 5);
-
+_printf("%s", "my name",);
 .SH SEE ALSO
-
-.I printf(1), printf(3).
-
+.I printf(3)
 .SH BUGS
-
-No know bugs.
-
+No known bugs.
 .SH AUTHOR
-
-alemayehu girma & kidus Efrem.
-
-
+Habtamu Wudiye and Fikade Aklilu
+.SH AUTORS CONTACT
+<https://github.com/habu27> and <https://github.com/FikadAklilu>
