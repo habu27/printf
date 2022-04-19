@@ -1,49 +1,18 @@
-#include"main.h"
-/**
- * _strcpy - copy string to another
- * @dest:dest
- * @src:source
- * Return: string
- */
-char *_strcpy(char *dest, char *src)
-{
-	int i = 0;
+#include "main.h"
 
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
 /**
- * print_string - print a string
- * @modif: struct containing modifier fields
- * @ap: va_list pointer containing a string
+ * print_string - Print string
+ * @list: list
  *
- * Return: return pointer of the beginning of string
- */
-char *print_string(modifier_t *modif, va_list ap)
+ * Return: String length
+ **/
+int print_string(va_list list)
 {
-	char *str;
-	char *res;
+char *p;
+int p_len;
 
-	if (!ap || !modif)
-		return (0);
-	str = va_arg(ap, char *);
-	if (str == NULL)
-	{
-		res = malloc(sizeof(char) * 5);
-		res = _strcpy(res, "(null)");
-		return (res);
-	}
-	if (str[0] == '\0')
-		return (NULL);
-	res = malloc(_strlen(str) + 1);
-	if (!res)
-		return (NULL);
-	res = _strcpy(res, str);
+p = va_arg(list, char*);
+p_len = print((p != NULL) ? p : "(null)");
 
-	return (res);
+return (p_len);
 }
