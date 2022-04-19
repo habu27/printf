@@ -72,4 +72,3 @@ int index, length;
 	ret[length] = '\0';
 	return (ret);
 }
-
